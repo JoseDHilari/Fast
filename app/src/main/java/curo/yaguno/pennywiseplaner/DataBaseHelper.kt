@@ -79,6 +79,29 @@ class DataBaseHelper(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME,
         }
         return db.insert("Ingresos", null, UsuarioValues)
     }
+    fun getTotalIngresos(usuarioId: Int): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT SUM(Cantidad) as Total FROM $TABLE_INGRESOS WHERE idUsuario = ?", arrayOf(usuarioId.toString()))
+
+        var total = 0
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(cursor.getColumnIndexOrThrow("Total"))
+        }
+        cursor.close()
+        return total
+    }
+
+    fun getTotalGastos(usuarioId: Int): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT SUM(Cantidad) as Total FROM $TABLE_GASTOS WHERE idUsuario = ?", arrayOf(usuarioId.toString()))
+
+        var total = 0
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(cursor.getColumnIndexOrThrow("Total"))
+        }
+        cursor.close()
+        return total
+    }
 
     companion object {
         private const val DATABASE_NAME = "Pennywise_Planer.db"
