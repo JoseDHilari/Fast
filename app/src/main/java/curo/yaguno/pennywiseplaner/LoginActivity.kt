@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         registerButton.setOnClickListener {
             val Usuario = UsuarioO.text.toString()
             val Contrasena = ContrasenaO.text.toString()
-            val contra = dbHelper.comprobarUsuario(Usuario)
+            val contra = dbHelper.comprobarUsuario(Usuario).toString()
 
             if(contra == Contrasena){
                 val intent = Intent(this, HomeActivity::class.java)

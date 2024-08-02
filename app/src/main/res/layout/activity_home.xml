@@ -134,6 +134,7 @@
             android:textSize="20dp"/>
 
         <ImageView
+            android:id="@+id/iv_ingresos"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/flechon"
@@ -143,7 +144,7 @@
             android:layout_marginLeft="100dp"/>
 
         <TextView
-            android:id="@+id/Tv_cetegorias"
+            android:id="@+id/tv_ingreso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gastos"
@@ -156,11 +157,11 @@
             android:textSize="20dp"/>
 
         <ImageView
-            android:id="@+id/tv_gastos"
+            android:id="@+id/iv_gastos"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/flechon"
-            app:layout_constraintBottom_toTopOf="@+id/Tv_cetegorias"
+            app:layout_constraintBottom_toTopOf="@+id/tv_ingreso"
             android:layout_marginBottom="5dp"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="100dp"/>
