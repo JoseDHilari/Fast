@@ -48,6 +48,38 @@ class DataBaseHelper(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME,
         return Contrasena
     }
 
+    fun ObtenerIdUsuario(Usuario:String): Int? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT idUsuario FROM $TABLE_USUARIO WHERE Usuario = ?", arrayOf(Usuario.toString()))
+
+        var nombreCurso: Int? = null
+
+        if (cursor.moveToFirst()) {
+            nombreCurso = cursor.getInt(cursor.getColumnIndexOrThrow("idUsuario"))
+        }
+
+        cursor.close()
+        return nombreCurso
+    }
+    fun insertGasto(Usuario: Int,Gasto:String,Valor:Int): Long {
+        val db = this.writableDatabase
+        val UsuarioValues = ContentValues().apply {
+            put("idUsuario", Usuario)
+            put("Concepto",Gasto)
+            put("Cantidad",Valor)
+        }
+        return db.insert("Gastos", null, UsuarioValues)
+    }
+    fun insertIngreso(Usuario: Int,Aunmento:String,Valor:Int): Long {
+        val db = this.writableDatabase
+        val UsuarioValues = ContentValues().apply {
+            put("idUsuario", Usuario)
+            put("Concepto",Aunmento)
+            put("Cantidad",Valor)
+        }
+        return db.insert("Ingresos", null, UsuarioValues)
+    }
+
     companion object {
         private const val DATABASE_NAME = "Pennywise_Planer.db"
         private const val DATABASE_VERSION = 1
@@ -72,7 +104,7 @@ class DataBaseHelper(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME,
                 idGasto INTEGER PRIMARY KEY AUTOINCREMENT,
                 idUsuario INTEGER NOT NULL,
                 Concepto TEXT NOT NULL,
-                Cantidad TEXT NOT NULL,
+                Cantidad INTEGER NOT NULL,
                 FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario)
             )
         """
@@ -83,7 +115,7 @@ class DataBaseHelper(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME,
                 idIngresos INTEGER PRIMARY KEY AUTOINCREMENT,
                 idUsuario INTEGER NOT NULL,
                 Concepto TEXT NOT NULL,
-                Cantidad TEXT NOT NULL,
+                Cantidad INTEGER NOT NULL,
                 FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario)
             )
         """

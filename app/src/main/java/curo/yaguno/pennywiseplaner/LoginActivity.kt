@@ -35,10 +35,11 @@ class LoginActivity : AppCompatActivity() {
             val Usuario = UsuarioO.text.toString()
             val Contrasena = ContrasenaO.text.toString()
             val contra = dbHelper.comprobarUsuario(Usuario).toString()
+            val ayuda = dbHelper.ObtenerIdUsuario(Usuario)
 
             if(contra == Contrasena){
                 val intent = Intent(this, HomeActivity::class.java)
-                intent.putExtra("Usuario",Usuario)
+                intent.putExtra("Usuario",ayuda)
                 startActivity(intent)
             }
             else{
